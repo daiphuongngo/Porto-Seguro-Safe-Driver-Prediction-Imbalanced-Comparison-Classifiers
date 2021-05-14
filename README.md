@@ -2,7 +2,7 @@
 
 **Overview:** 
 
-(according to this Porto Seguro's Safe Driver Prediction Dataset: https://www.kaggle.com/c/porto-seguro-safe-driver-prediction/data)
+(according to this Porto Seguro's Safe Driver Prediction dataset: https://www.kaggle.com/c/porto-seguro-safe-driver-prediction/data)
 
 “Nothing ruins the thrill of buying a brand new car more quickly than seeing your new insurance bill. The sting’s even more painful when you know you’re a good driver. It doesn’t seem fair that you have to pay so much if you’ve been cautious on the road for years.
 
