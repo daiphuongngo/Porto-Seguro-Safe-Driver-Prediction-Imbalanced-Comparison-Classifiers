@@ -1,4 +1,4 @@
-# Porto Seguro's Safe Driver Predition - Comparison of multiple Classfifers on the imbalanced dataset
+# Porto Seguro's Safe Driver Prediction - Comparison of multiple Classfifers on the imbalanced dataset
 
 **Overview:** 
 
