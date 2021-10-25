@@ -1,5 +1,13 @@
 # Porto Seguro's Safe Driver Prediction - Comparison of multiple Classfifers on the imbalanced dataset
 
+## Category:
+
+- Banking
+
+- Financial Institute
+
+- Insurance
+
 **Overview:** 
 
 (according to this Porto Seguro's Safe Driver Prediction dataset: https://www.kaggle.com/c/porto-seguro-safe-driver-prediction/data)
