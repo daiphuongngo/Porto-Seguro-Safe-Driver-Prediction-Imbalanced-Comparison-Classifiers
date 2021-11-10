@@ -131,7 +131,42 @@ A.8. Unique values of each features
 
 A.9. Draw Pairplot
 
+```
+sns.set()
+sns.pairplot(df_train, hue='ps_ind_03')
+```
+
 A.10. Confusion Matrix Function
+
+```
+def plot_confusion_matrix(cm, classes, ax,
+                          normalize=False,
+                          title='Confusion matrix',
+                          cmap=plt.cm.Blues):
+    """
+    This function prints and plots the confusion matrix.
+    Normalization can be applied by setting `normalize=True`.
+    """
+    print(cm)
+    print('')
+
+    ax.imshow(cm, interpolation='nearest', cmap=cmap)
+    ax.set_title(title)
+    tick_marks = np.arange(len(classes))
+    plt.xticks(tick_marks, classes, rotation=45)
+    plt.sca(ax)
+    plt.yticks(tick_marks, classes)
+
+    fmt = '.2f' if normalize else 'd'
+    thresh = cm.max() / 2.
+    for i, j in itertools.product(range(cm.shape[0]), range(cm.shape[1])):
+        ax.text(j, i, format(cm[i, j], fmt),
+                horizontalalignment="center",
+                color="white" if cm[i, j] > thresh else "black")
+
+    ax.set_ylabel('True label')
+    ax.set_xlabel('Predicted label')
+```
 
 **B. Comparison of Ensemble Classifiers [8], XGBoost Classifier [9][10][11], Deep Neural Network (Mini-batch resampling for Keras and Tensorflow)**
 
@@ -145,25 +180,137 @@ A.10. Confusion Matrix Function
 
 ## Single Decision Tree 
 
+We use the training of Single Decision Tree classifier as a baseline to compare with other classifiers on this imbalanced dataset.
+
+Balanced accuracy and geometric mean are reported followingly as they are metrics widely used in the literature to validate model trained on imbalanced set.
+
 <img src="https://user-images.githubusercontent.com/70437668/141063584-8b33093a-95d4-490a-8c99-622e3b318897.jpg" width=50% height=50%>
+
+```
+Mean ROC AUC on Train Set: 0.506
+Mean ROC AUC on Test Set: 0.508
+```
+
+```
+Single Decision Tree score on Train Set: 1.0
+Single Decision Tree score on Test Set: 0.918516153962467
+```
 
 ## Bagging & Balanced Bagging
 
+A number of estimators are built on various randomly selected data subsets in ensemble classifiers. But each data subset is not allowed to be balanced by Bagging classifier because the majority classes will be favored by it when implementing training on imbalanced data set.
+
+In contrast, each data subset is allowed to be resample in ordor to have each ensemble's estimator trained by the Balanced Bagging Classifier. This means the output of an Easy Ensemble sample with an ensemble of classifiers, Bagging Classifier for instance will be combined. So an advantage of Balanced Bagging Classifier over Bagging Classifier from scikit learn is that it takes the same parameters and also another two parameters, sampling stratgy and replacement to keep the random under-sampler's behavior under control.
+
 <img src="https://user-images.githubusercontent.com/70437668/141063584-8b33093a-95d4-490a-8c99-622e3b318897.jpg" width=50% height=50%>
+
+### Bagging
+```
+Mean ROC AUC on Train Set: 0.537
+Mean ROC AUC on Test Set: 0.539
+```
+
+### Balanced Bagging
+```
+Mean ROC AUC on Train Set: 0.572
+Mean ROC AUC on Test Set: 0.559
+```
+
+```
+Bagging Classifier score on Train Set: 0.991356010156058
+Balanced Bagging Classifier score on Test Set: 0.8057660321567178
+```
 
 ## Random Forest & Balanced Random Forest 
 
+Random Forest is another popular ensemble method and it is usually outperforming bagging. Here, we used a vanilla random forest and its balanced counterpart in which each bootstrap sample is balanced.
+
 <img src="https://user-images.githubusercontent.com/70437668/141063505-ab1d7cbb-dd20-4220-b51a-5edb2a0369f9.jpg" width=50% height=50%>
+
+### Random Forest
+```
+Mean ROC AUC on Train Set: 0.523
+Mean ROC AUC on Test Set: 0.521
+```
+
+### Balanced Random Forest
+```
+Mean ROC AUC on Train Set: 0.551
+Mean ROC AUC on Test Set: 0.539
+```
+
+```
+Random Forest classifier score on Train Set: 0.9914799157442
+Balanced Random Forest classifier score on Test Set: 0.5403807059693218
+```
 
 ## Easy Ensemble & RUS Boost
 
+In the same manner, Easy Ensemble classifier is a bag of balanced AdaBoost classifier. However, it will be slower to train than random forest and will achieve worse performance
+
+https://imbalanced-learn.readthedocs.io/en/stable/generated/imblearn.ensemble.EasyEnsembleClassifier.html
+
+RUS Boost: Several methods taking advantage of boosting have been designed. RUSBoostClassifier randomly under-sample the dataset before to perform a boosting iteration. Random under-sampling integrating in the learning of an AdaBoost classifier. During learning, the problem of class balancing is alleviated by random under-sampling the sample at each iteration of the boosting algorithm.
+
+https://imbalanced-learn.readthedocs.io/en/stable/generated/imblearn.ensemble.RUSBoostClassifier.html?highlight=rusboost#imblearn.ensemble.RUSBoostClassifier
+
 <img src="https://user-images.githubusercontent.com/70437668/141063470-03a867db-4329-4f36-ae7c-77fec93ada2a.jpg" width=50% height=50%>
+
+### Easy Ensemble
+```
+Mean ROC AUC on Train Set: 0.608
+Mean ROC AUC on Test Set: 0.603
+```
+
+```
+Easy Ensemble Classifier score on Train Set: 0.6258828273155119
+
+```
+
+### RUS Boost
+```
+Mean ROC AUC on Train Set: 0.627
+Mean ROC AUC on Test Set: 0.613
+```
+
+```
+RUS Boost score on Test Set: 0.6154802506678315
+```
 
 ## XGBoost
 
+XGBoost provides a highly efficient implementation of the stochastic gradient boosting algorithm and access to a suite of model hyperparameters designed to provide control over the model training process.
+
+https://machinelearningmastery.com/xgboost-for-imbalanced-classification/
+
 <img src="https://user-images.githubusercontent.com/70437668/141063439-e46b1a8a-b218-418a-94de-46fd635e4597.jpg" width=50% height=50%>
 
+```
+Mean ROC AUC on Train Set: 0.620
+Mean ROC AUC on Test Set: 0.589
+```
+
+```
+XGBoost classifier score on Test Set: 0.9633238688866115
+```
+
 ## Deep Neural Network's result
+
+```
+Epoch 5/5
+477/477 [==============================] - 4s 8ms/step - loss: 0.1579 - accuracy: 0.9634 - val_loss: 0.1514 - val_accuracy: 0.9642
+```
+
+y_pred
+```
+[[0.02850922]
+ [0.00979213]
+ [0.05552964]
+ ...
+ [0.00529212]
+ [0.00812945]
+ [0.00510255]]
+```
 
 ![DNN result](https://user-images.githubusercontent.com/70437668/141063412-8d83784c-8f47-4dcd-94e6-05498598ad43.jpg)
 
@@ -202,9 +349,25 @@ A.10. Confusion Matrix Function
 
 **E. Draw Single Decision Tree**
 
-![Decision Tree max_depth=5](https://user-images.githubusercontent.com/70437668/141063214-e00dd429-c4a4-439d-804b-659b6ccc3fd6.jpg)
+![download](https://user-images.githubusercontent.com/70437668/141065326-d2dd2570-b789-4a08-8aa5-7ccf4f2cbdd4.png)
 
 **F. ROC & AUC between Deep Neural Network, Ensemble Classifiers, XGBoost Classifier**
+
+RUS Boost has the highest ROC AUC = 0.624 to be considered the best Classifier on the imbalanced dataset.
+
+```
+No Skill: ROC AUC=0.500
+With MLP: ROC AUC=0.621
+With Decision Tree: ROC AUC=0.503
+With Bagging: ROC AUC=0.535
+With Balanced Bagging: ROC AUC=0.560
+With Random Forest: ROC AUC=0.521
+With Balanced Random Forest: ROC AUC=0.549
+With Easy Ensemble: ROC AUC=0.612
+With RUS Boost: ROC AUC=0.624
+With XGBoost: ROC AUC=0.609
+Best: ROC AUC=1.000
+```
 
 <img src="https://user-images.githubusercontent.com/70437668/141063180-291c4d4c-69d6-41fc-9f9c-1d724e89ab66.jpg" width=50% height=50%>
 
