@@ -115,7 +115,7 @@ A.1. Load libraries
 
 A.2. Load an imbalanced dataset
 
-![Imbalanced Dataset](https://user-images.githubusercontent.com/70437668/141063635-31543d54-8d68-46ee-b064-051b6f639583.jpg)
+<img src="https://user-images.githubusercontent.com/70437668/141063635-31543d54-8d68-46ee-b064-051b6f639583.jpg" width=50% height=50%>
 
 A.3. Data Exploration
 
@@ -194,11 +194,11 @@ A.10. Confusion Matrix Function
 
 ## Train set
 
-![Heatmap - Train set](https://user-images.githubusercontent.com/70437668/141063258-0d1b0dec-d7e5-4bc3-a5f2-8f232aff86da.jpg)
+<img src="https://user-images.githubusercontent.com/70437668/141063258-0d1b0dec-d7e5-4bc3-a5f2-8f232aff86da.jpg" width=50% height=50%>
 
 ## Test set
 
-![Heatmap - Test set](https://user-images.githubusercontent.com/70437668/141063268-814e866d-7ad9-4fe5-acc3-89f2635d0ff9.jpg)
+<img src="https://user-images.githubusercontent.com/70437668/141063268-814e866d-7ad9-4fe5-acc3-89f2635d0ff9.jpg" width=50% height=50%>
 
 **E. Draw Single Decision Tree**
 
@@ -206,7 +206,7 @@ A.10. Confusion Matrix Function
 
 **F. ROC & AUC between Deep Neural Network, Ensemble Classifiers, XGBoost Classifier**
 
-![ROC Curves](https://user-images.githubusercontent.com/70437668/141063180-291c4d4c-69d6-41fc-9f9c-1d724e89ab66.jpg)
+<img src="https://user-images.githubusercontent.com/70437668/141063180-291c4d4c-69d6-41fc-9f9c-1d724e89ab66.jpg" width=50% height=50%>
 
 **G. Predict**
 
