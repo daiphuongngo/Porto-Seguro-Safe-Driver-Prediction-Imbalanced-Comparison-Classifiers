@@ -115,6 +115,8 @@ A.1. Load libraries
 
 A.2. Load an imbalanced dataset
 
+![Imbalanced Dataset](https://user-images.githubusercontent.com/70437668/141063635-31543d54-8d68-46ee-b064-051b6f639583.jpg)
+
 A.3. Data Exploration
 
 A.4. Check Missing or Nan
@@ -141,24 +143,92 @@ A.10. Confusion Matrix Function
 
 - Classification report (Accuracy, Balanced accuracy, Geometric mean, Precision, Recall, F1-score)
 
+## Single Decision Tree 
+
+<img src="https://user-images.githubusercontent.com/70437668/141063584-8b33093a-95d4-490a-8c99-622e3b318897.jpg" width=50% height=50%>
+
+## Bagging & Balanced Bagging
+
+<img src="https://user-images.githubusercontent.com/70437668/141063584-8b33093a-95d4-490a-8c99-622e3b318897.jpg" width=50% height=50%>
+
+## Random Forest & Balanced Random Forest 
+
+<img src="https://user-images.githubusercontent.com/70437668/141063505-ab1d7cbb-dd20-4220-b51a-5edb2a0369f9.jpg" width=50% height=50%>
+
+## Easy Ensemble & RUS Boost
+
+<img src="https://user-images.githubusercontent.com/70437668/141063470-03a867db-4329-4f36-ae7c-77fec93ada2a.jpg" width=50% height=50%>
+
+## XGBoost
+
+<img src="https://user-images.githubusercontent.com/70437668/141063439-e46b1a8a-b218-418a-94de-46fd635e4597.jpg" width=50% height=50%>
+
+## Deep Neural Network's result
+
+![DNN result](https://user-images.githubusercontent.com/70437668/141063412-8d83784c-8f47-4dcd-94e6-05498598ad43.jpg)
+
 **C. Feature Importance**
+
+## Decision Tree
+
+![Decision Tree Feature Importance](https://user-images.githubusercontent.com/70437668/141063370-2436a59f-680b-455d-bb2f-9913021f6a70.jpg)
+
+## Random Forest 
+
+![Random Forest Feature Importance](https://user-images.githubusercontent.com/70437668/141063361-a29a1527-fb9d-4d36-8642-91d36c2f18a7.jpg)
+
+## Balanced Random Forest
+
+![Balanced Random Forest Feature Importance](https://user-images.githubusercontent.com/70437668/141063356-b7168576-5acd-4242-bc91-49d9e8f4b46c.jpg)
+
+## RUS Boost
+
+![RUS Boost Feature Importance](https://user-images.githubusercontent.com/70437668/141063346-b28aec1b-9463-47f8-88b5-1d0a61622b7f.jpg)
+
+## XGBoost
+
+![XGBoost Feature Importance](https://user-images.githubusercontent.com/70437668/141063338-e60ea688-48f9-4df0-8d13-5110c664b978.jpg)
+
 
 **D. Heatmap**
 
+## Train set
+
+![Heatmap - Train set](https://user-images.githubusercontent.com/70437668/141063258-0d1b0dec-d7e5-4bc3-a5f2-8f232aff86da.jpg)
+
+## Test set
+
+![Heatmap - Test set](https://user-images.githubusercontent.com/70437668/141063268-814e866d-7ad9-4fe5-acc3-89f2635d0ff9.jpg)
+
 **E. Draw Single Decision Tree**
+
+![Decision Tree max_depth=5](https://user-images.githubusercontent.com/70437668/141063214-e00dd429-c4a4-439d-804b-659b6ccc3fd6.jpg)
 
 **F. ROC & AUC between Deep Neural Network, Ensemble Classifiers, XGBoost Classifier**
 
+![ROC Curves](https://user-images.githubusercontent.com/70437668/141063180-291c4d4c-69d6-41fc-9f9c-1d724e89ab66.jpg)
+
 **G. Predict**
+
+![Predict](https://user-images.githubusercontent.com/70437668/141063151-3e227c9e-0a2b-4c0c-ba4f-97442010813a.jpg)
 
 **H. New Policy on Trial:**
 
 H.1 List out
 
 H.2 Implement that New Policy
+```
+result = dectree.predict(new_policy)
+len(np.where(result==1)[0])
+```
 
+Output
+```
+30537
+```
 H.3 Result
 
+**30537 drivers will claim insurance instead of 3 with entropy = 0 when changing ps_car_13 (most influential feature by Single Decision Tree with max_depth=5) to 2.5 for example (as long as greater than 2.447).**
 
 **References:**
 [1] https://imbalanced-learn.readthedocs.io/en/stable/generated/imblearn.ensemble.EasyEnsembleClassifier.html
