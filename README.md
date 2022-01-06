@@ -48,8 +48,11 @@ Selecting the best classification method which also can avoid overfitting.
 
 **Target achievement:**
 
-RUS Boost has the highest Balanced Accuracy, Geometric Mean, F1 score and the best Confusion Matrix among all classification methods.
+- RUS Boost had the highest Balanced Accuracy=0.59, Geometric Mean=0.58, best Confusion Matrix [[35428 21913][974 1206]], ROC AUC=0.624 among classifiers while the second-best classifier XGBoost had Balanced Accuracy=0.50, Geometric Mean=0.03, Confusion Matrix [[57336 5][2178 2]], ROC AUC=0.609.
 
+- Dropped insurance claimers to 30,537 drivers when changing ps_car_13 (most influential feature by RUS Boost & Single Decision Tree with max_depth=5) to 2.5 as per RUS Boost, & further when ps_car_13 >2.447, entropy<0.57 as per Decision Tree.
+
+-  Increased insurance claimers to 511,884 when changing ps_car_13 to 0.5 & 556,283 when ps_car_13=1 but fell to 491,936 when ps_car_13=-1.
 
 imbalanced-learn offers a number of re-sampling techniques commonly used in strong between-class imbalanced datasets. This Python package is also compatible with scikit-learn.
 
