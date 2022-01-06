@@ -350,11 +350,11 @@ y_pred
 
 <img src="https://user-images.githubusercontent.com/70437668/141063268-814e866d-7ad9-4fe5-acc3-89f2635d0ff9.jpg" width=50% height=50%>
 
-#### E. Draw Single Decision Tree
+### E. Draw Single Decision Tree
 
 ![download](https://user-images.githubusercontent.com/70437668/141065326-d2dd2570-b789-4a08-8aa5-7ccf4f2cbdd4.png)
 
-#### F. ROC & AUC between Deep Neural Network, Ensemble Classifiers, XGBoost Classifier
+### F. ROC & AUC between Deep Neural Network, Ensemble Classifiers, XGBoost Classifier
 
 RUS Boost has the highest ROC AUC = 0.624 to be considered the best Classifier on the imbalanced dataset.
 
@@ -374,25 +374,25 @@ Best: ROC AUC=1.000
 
 <img src="https://user-images.githubusercontent.com/70437668/141063180-291c4d4c-69d6-41fc-9f9c-1d724e89ab66.jpg" width=50% height=50%>
 
-#### G. Predict
+### G. Predict
 
 ![Predict](https://user-images.githubusercontent.com/70437668/141063151-3e227c9e-0a2b-4c0c-ba4f-97442010813a.jpg)
 
-#### H. New Policy on Trial:
+### H. New Policy on Trial:
 
-##### H.1 List out
+#### H.1 List out
 
-##### H.2 Implement that New Policy
+#### H.2 Implement that New Policy
 ```
 result = dectree.predict(new_policy)
 len(np.where(result==1)[0])
 ```
 
-##### Output
+#### Output
 ```
 30537
 ```
-##### H.3 Result
+#### H.3 Result
 
 **30537 drivers will claim insurance instead of 3 with entropy = 0 when changing ps_car_13 (most influential feature by Single Decision Tree with max_depth=5) to 2.5 for example (as long as greater than 2.447).**
 
