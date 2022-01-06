@@ -12,7 +12,7 @@
 
 - Python
 
-**Overview:** 
+### Overview:
 
 (according to this Porto Seguro's Safe Driver Prediction dataset: https://www.kaggle.com/c/porto-seguro-safe-driver-prediction/data)
 
@@ -22,15 +22,15 @@ Porto Seguro, one of Brazil’s largest auto and homeowner insurance companies, 
 
 In this competition, you’re challenged to build a model that predicts the probability that a driver will initiate an auto insurance claim in the next year. While Porto Seguro has used machine learning for the past 20 years, they’re looking to Kaggle’s machine learning community to explore new, more powerful methods. A more accurate prediction will allow them to further tailor their prices, and hopefully make auto insurance coverage more accessible to more drivers.”
 
-**Data Description:**
+### Data Description:
 
 In the train and test data, features that belong to similar groupings are tagged as such in the feature names (e.g., ind, reg, car, calc). In addition, feature names include the postfix bin to indicate binary features and cat to indicate categorical features. Features without these designations are either continuous or ordinal. Values of -1 indicate that the feature was missing from the observation. The target columns signifies whether or not a claim was filed for that policy holder."
 
-**Scope:**
+### Scope:
 
 Use different classification methods to predict more accurately how many auto insurance policy holder files a claim (predict the probability) while avoid overfitting.
 
-**How to proceed:**
+### How to proceed:
 
 Use different models such as Single Decision Tree, Ensemble Classifiers (Bagging, Balanced Bagging, Random Forest, Balanced Random Forest, Easy Ensemble Classifier, RUS Boost), XGBoost, Deep Neural Network to evaluate their performances on both imbalanced Train and Test set while avoid fitting.
 
@@ -38,15 +38,15 @@ Different metrics such as Accuracy (we do not rely on this one), Balanced Accura
 
 Find the most important features of this dataset which can be used in policies to predict number of ‘Not Claim’ or ‘Claim’ customers after applying those new changes.
 
-**Problem statement:** 
+### Problem statement:
 
 Imbalanced dataset could cause overfitting. We can not rely on Accuracy as a metric for imbalanced dataset (will be usually high and misleading) so we would use confusion matrix, balanced accuracy, geometric mean, F1 score instead. 
 
-**Target statement:**
+### Target statement:
 
 Selecting the best classification method which also can avoid overfitting.
 
-**Target achievement:**
+### Target achievement:
 
 - RUS Boost had the highest Balanced Accuracy=0.59, Geometric Mean=0.58, best Confusion Matrix [[35428 21913][974 1206]], ROC AUC=0.624 among classifiers while the second-best classifier XGBoost had Balanced Accuracy=0.50, Geometric Mean=0.03, Confusion Matrix [[57336 5][2178 2]], ROC AUC=0.609.
 
@@ -76,7 +76,7 @@ matplotlib(>=2.0.0)
 
 pandas(>=0.22)
 
-**Installation:** 
+### Installation:
 
 You should install imbalanced-learn on the PyPi's repository via pip from the begging and restart the runtime, then start your work:
 ```pip install -U imbalanced-learn```
@@ -87,9 +87,9 @@ Anaconda Cloud platform:
 
 Here are Classification methods which I would create and evaluate in my file:
 
-**Single Decision Tree** 
+#### Single Decision Tree
 
-**Ensemble classifier using samplers internally:**
+#### Ensemble classifier using samplers internally:
 
 - Easy Ensemble classifier [1]
 
@@ -105,14 +105,14 @@ Here are Classification methods which I would create and evaluate in my file:
 
 - RUSBoost [5]
 
-**Mini-batch resampling for Keras and Tensorflow (Deep Neural Network - MLP) [6]**
+- Mini-batch resampling for Keras and Tensorflow (Deep Neural Network - MLP) [6]
 
 
-**Table of Contents:**
+### Table of Contents:
 
 **Comparison of ensembling classifiers internally using sampling**
 
-**A. Data Engineering:**
+### A. Data Engineering:
 
 A.1. Load libraries
 
@@ -171,7 +171,7 @@ def plot_confusion_matrix(cm, classes, ax,
     ax.set_xlabel('Predicted label')
 ```
 
-**B. Comparison of Ensemble Classifiers [8], XGBoost Classifier [9][10][11], Deep Neural Network (Mini-batch resampling for Keras and Tensorflow)**
+### B. Comparison of Ensemble Classifiers [8], XGBoost Classifier [9][10][11], Deep Neural Network (Mini-batch resampling for Keras and Tensorflow)
 
 - Confusion Matrix
 
@@ -181,7 +181,7 @@ def plot_confusion_matrix(cm, classes, ax,
 
 - Classification report (Accuracy, Balanced accuracy, Geometric mean, Precision, Recall, F1-score)
 
-## Single Decision Tree 
+#### Single Decision Tree 
 
 We use the training of Single Decision Tree classifier as a baseline to compare with other classifiers on this imbalanced dataset.
 
@@ -199,7 +199,7 @@ Single Decision Tree score on Train Set: 1.0
 Single Decision Tree score on Test Set: 0.918516153962467
 ```
 
-## Bagging & Balanced Bagging
+#### Bagging & Balanced Bagging
 
 A number of estimators are built on various randomly selected data subsets in ensemble classifiers. But each data subset is not allowed to be balanced by Bagging classifier because the majority classes will be favored by it when implementing training on imbalanced data set.
 
@@ -207,13 +207,13 @@ In contrast, each data subset is allowed to be resample in ordor to have each en
 
 <img src="https://user-images.githubusercontent.com/70437668/141063584-8b33093a-95d4-490a-8c99-622e3b318897.jpg" width=50% height=50%>
 
-### Bagging
+##### Bagging
 ```
 Mean ROC AUC on Train Set: 0.537
 Mean ROC AUC on Test Set: 0.539
 ```
 
-### Balanced Bagging
+##### Balanced Bagging
 ```
 Mean ROC AUC on Train Set: 0.572
 Mean ROC AUC on Test Set: 0.559
@@ -224,19 +224,19 @@ Bagging Classifier score on Train Set: 0.991356010156058
 Balanced Bagging Classifier score on Test Set: 0.8057660321567178
 ```
 
-## Random Forest & Balanced Random Forest 
+#### Random Forest & Balanced Random Forest 
 
 Random Forest is another popular ensemble method and it is usually outperforming bagging. Here, we used a vanilla random forest and its balanced counterpart in which each bootstrap sample is balanced.
 
 <img src="https://user-images.githubusercontent.com/70437668/141063505-ab1d7cbb-dd20-4220-b51a-5edb2a0369f9.jpg" width=50% height=50%>
 
-### Random Forest
+#### Random Forest
 ```
 Mean ROC AUC on Train Set: 0.523
 Mean ROC AUC on Test Set: 0.521
 ```
 
-### Balanced Random Forest
+#### Balanced Random Forest
 ```
 Mean ROC AUC on Train Set: 0.551
 Mean ROC AUC on Test Set: 0.539
@@ -247,7 +247,7 @@ Random Forest classifier score on Train Set: 0.9914799157442
 Balanced Random Forest classifier score on Test Set: 0.5403807059693218
 ```
 
-## Easy Ensemble & RUS Boost
+#### Easy Ensemble & RUS Boost
 
 In the same manner, Easy Ensemble classifier is a bag of balanced AdaBoost classifier. However, it will be slower to train than random forest and will achieve worse performance
 
@@ -259,7 +259,7 @@ https://imbalanced-learn.readthedocs.io/en/stable/generated/imblearn.ensemble.RU
 
 <img src="https://user-images.githubusercontent.com/70437668/141063470-03a867db-4329-4f36-ae7c-77fec93ada2a.jpg" width=50% height=50%>
 
-### Easy Ensemble
+##### Easy Ensemble
 ```
 Mean ROC AUC on Train Set: 0.608
 Mean ROC AUC on Test Set: 0.603
@@ -270,7 +270,7 @@ Easy Ensemble Classifier score on Train Set: 0.6258828273155119
 
 ```
 
-### RUS Boost
+##### RUS Boost
 ```
 Mean ROC AUC on Train Set: 0.627
 Mean ROC AUC on Test Set: 0.613
@@ -280,7 +280,7 @@ Mean ROC AUC on Test Set: 0.613
 RUS Boost score on Test Set: 0.6154802506678315
 ```
 
-## XGBoost
+#### XGBoost
 
 XGBoost provides a highly efficient implementation of the stochastic gradient boosting algorithm and access to a suite of model hyperparameters designed to provide control over the model training process.
 
@@ -297,7 +297,7 @@ Mean ROC AUC on Test Set: 0.589
 XGBoost classifier score on Test Set: 0.9633238688866115
 ```
 
-## Deep Neural Network's result
+#### Deep Neural Network's result
 
 ```
 Epoch 5/5
@@ -317,44 +317,44 @@ y_pred
 
 ![DNN result](https://user-images.githubusercontent.com/70437668/141063412-8d83784c-8f47-4dcd-94e6-05498598ad43.jpg)
 
-**C. Feature Importance**
+### C. Feature Importance
 
-## Decision Tree
+#### Decision Tree
 
 ![Decision Tree Feature Importance](https://user-images.githubusercontent.com/70437668/141063370-2436a59f-680b-455d-bb2f-9913021f6a70.jpg)
 
-## Random Forest 
+#### Random Forest 
 
 ![Random Forest Feature Importance](https://user-images.githubusercontent.com/70437668/141063361-a29a1527-fb9d-4d36-8642-91d36c2f18a7.jpg)
 
-## Balanced Random Forest
+#### Balanced Random Forest
 
 ![Balanced Random Forest Feature Importance](https://user-images.githubusercontent.com/70437668/141063356-b7168576-5acd-4242-bc91-49d9e8f4b46c.jpg)
 
-## RUS Boost
+#### RUS Boost
 
 ![RUS Boost Feature Importance](https://user-images.githubusercontent.com/70437668/141063346-b28aec1b-9463-47f8-88b5-1d0a61622b7f.jpg)
 
-## XGBoost
+#### XGBoost
 
 ![XGBoost Feature Importance](https://user-images.githubusercontent.com/70437668/141063338-e60ea688-48f9-4df0-8d13-5110c664b978.jpg)
 
 
-**D. Heatmap**
+### D. Heatmap
 
-## Train set
+##### Train set
 
 <img src="https://user-images.githubusercontent.com/70437668/141063258-0d1b0dec-d7e5-4bc3-a5f2-8f232aff86da.jpg" width=50% height=50%>
 
-## Test set
+##### Test set
 
 <img src="https://user-images.githubusercontent.com/70437668/141063268-814e866d-7ad9-4fe5-acc3-89f2635d0ff9.jpg" width=50% height=50%>
 
-**E. Draw Single Decision Tree**
+#### E. Draw Single Decision Tree
 
 ![download](https://user-images.githubusercontent.com/70437668/141065326-d2dd2570-b789-4a08-8aa5-7ccf4f2cbdd4.png)
 
-**F. ROC & AUC between Deep Neural Network, Ensemble Classifiers, XGBoost Classifier**
+#### F. ROC & AUC between Deep Neural Network, Ensemble Classifiers, XGBoost Classifier
 
 RUS Boost has the highest ROC AUC = 0.624 to be considered the best Classifier on the imbalanced dataset.
 
@@ -374,29 +374,30 @@ Best: ROC AUC=1.000
 
 <img src="https://user-images.githubusercontent.com/70437668/141063180-291c4d4c-69d6-41fc-9f9c-1d724e89ab66.jpg" width=50% height=50%>
 
-**G. Predict**
+#### G. Predict
 
 ![Predict](https://user-images.githubusercontent.com/70437668/141063151-3e227c9e-0a2b-4c0c-ba4f-97442010813a.jpg)
 
-**H. New Policy on Trial:**
+#### H. New Policy on Trial:
 
-H.1 List out
+##### H.1 List out
 
-H.2 Implement that New Policy
+##### H.2 Implement that New Policy
 ```
 result = dectree.predict(new_policy)
 len(np.where(result==1)[0])
 ```
 
-Output
+##### Output
 ```
 30537
 ```
-H.3 Result
+##### H.3 Result
 
 **30537 drivers will claim insurance instead of 3 with entropy = 0 when changing ps_car_13 (most influential feature by Single Decision Tree with max_depth=5) to 2.5 for example (as long as greater than 2.447).**
 
-**References:**
+## References:
+
 [1] https://imbalanced-learn.readthedocs.io/en/stable/generated/imblearn.ensemble.EasyEnsembleClassifier.html
 
 [2] https://imbalanced-learn.readthedocs.io/en/stable/generated/imblearn.ensemble.BalancedRandomForestClassifier.html
