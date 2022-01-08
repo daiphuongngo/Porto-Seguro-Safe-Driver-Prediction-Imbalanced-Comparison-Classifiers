@@ -36,13 +36,13 @@ Use different classification methods to predict more accurately how many auto in
 
 Use different models such as Single Decision Tree, Ensemble Classifiers (Bagging, Balanced Bagging, Random Forest, Balanced Random Forest, Easy Ensemble Classifier, RUS Boost), XGBoost, Deep Neural Network, Distributed Random Forest H2O, Gradient Boosting H2O to evaluate their performances on both imbalanced Train and Test set while avoid fitting.
 
-Different metrics such as Accuracy (we do not rely on this one), Balanced Accuracy, Geometric Mean, Precision, Recall, F1 score, Confusion Matrix will be calculated.
+Different metrics such as Accuracy (I do not rely on this one), Balanced Accuracy, Geometric Mean, Precision, Recall, F1 score, Confusion Matrix will be calculated.
 
 Find the most important features of this dataset which can be used in policies to predict number of ‘Not Claim’ or ‘Claim’ customers after applying those new changes.
 
 ### Problem statement:
 
-Imbalanced dataset could cause overfitting. We can not rely on Accuracy as a metric for imbalanced dataset (will be usually high and misleading) so we would use confusion matrix, balanced accuracy, geometric mean, F1 score instead. 
+Imbalanced dataset could cause overfitting. I can not rely on Accuracy as a metric for imbalanced dataset (will be usually high and misleading) so I would use confusion matrix, balanced accuracy, geometric mean, F1 score instead. 
 
 ### Target statement:
 
@@ -186,13 +186,15 @@ def plot_confusion_matrix(cm, classes, ax,
 
 - Mean ROC AUC
 
-- Accuracy scores on Train / Test set (We should not rely on accuracy as it would be high and misleading. Instead, we should look at other metrics as confusion matrix, Balanced accuracy, Geometric mean, Precision, Recall, F1-score.
+- Accuracy scores on Train / Test set (I should not rely on accuracy as it would be high and misleading. Instead, I should look at other metrics as confusion matrix, Balanced accuracy, Geometric mean, Precision, Recall, F1-score.
 
 - Classification report (Accuracy, Balanced accuracy, Geometric mean, Precision, Recall, F1-score)
 
 #### Single Decision Tree 
 
-We use the training of Single Decision Tree classifier as a baseline to compare with other classifiers on this imbalanced dataset.
+Decision Trees (DTs) are a non-parametric supervised learning method used for classification and regression. The goal is to create a model that predicts the value of a target variable by learning simple decision rules inferred from the data features. A tree can be seen as a piecewise constant approximation.
+
+I use the training of Single Decision Tree classifier as a baseline to compare with other classifiers on this imbalanced dataset.
 
 Balanced accuracy and geometric mean are reported followingly as they are metrics widely used in the literature to validate model trained on imbalanced set.
 
@@ -217,12 +219,18 @@ In contrast, each data subset is allowed to be resample in ordor to have each en
 <img src="https://user-images.githubusercontent.com/70437668/141063584-8b33093a-95d4-490a-8c99-622e3b318897.jpg" width=50% height=50%>
 
 ##### Bagging
+
+A Bagging classifier is an ensemble meta-estimator that fits base classifiers each on random subsets of the original dataset and then aggregate their individual predictions (either by voting or by averaging) to form a final prediction. Such a meta-estimator can typically be used as a way to reduce the variance of a black-box estimator (e.g., a decision tree), by introducing randomization into its construction procedure and then making an ensemble out of it.
+
 ```
 Mean ROC AUC on Train Set: 0.537
 Mean ROC AUC on Test Set: 0.539
 ```
 
 ##### Balanced Bagging
+
+A Bagging classifier with additional balancing. This implementation of Bagging is similar to the scikit-learn implementation. It includes an additional step to balance the training set at fit time using a given sampler. This classifier can serves as a basis to implement various methods such as Exactly Balanced Bagging, Roughly Balanced Bagging, Over-Bagging, or SMOTE-Bagging.
+
 ```
 Mean ROC AUC on Train Set: 0.572
 Mean ROC AUC on Test Set: 0.559
@@ -235,17 +243,23 @@ Balanced Bagging Classifier score on Test Set: 0.8057660321567178
 
 #### Random Forest & Balanced Random Forest 
 
-Random Forest is another popular ensemble method and it is usually outperforming bagging. Here, we used a vanilla random forest and its balanced counterpart in which each bootstrap sample is balanced.
+Random Forest is another popular ensemble method and it is usually outperforming bagging. Here, I used a vanilla random forest and its balanced counterpart in which each bootstrap sample is balanced.
 
 <img src="https://user-images.githubusercontent.com/70437668/141063505-ab1d7cbb-dd20-4220-b51a-5edb2a0369f9.jpg" width=50% height=50%>
 
 #### Random Forest
+
+A random forest is a meta estimator that fits a number of decision tree classifiers on various sub-samples of the dataset and uses averaging to improve the predictive accuracy and control over-fitting. The sub-sample size is controlled with the max_samples parameter if bootstrap=True (default), otherwise the whole dataset is used to build each tree.
+
 ```
 Mean ROC AUC on Train Set: 0.523
 Mean ROC AUC on Test Set: 0.521
 ```
 
 #### Balanced Random Forest
+
+A balanced random forest randomly under-samples each boostrap sample to balance it.
+
 ```
 Mean ROC AUC on Train Set: 0.551
 Mean ROC AUC on Test Set: 0.539
@@ -269,6 +283,9 @@ https://imbalanced-learn.readthedocs.io/en/stable/generated/imblearn.ensemble.RU
 <img src="https://user-images.githubusercontent.com/70437668/141063470-03a867db-4329-4f36-ae7c-77fec93ada2a.jpg" width=50% height=50%>
 
 ##### Easy Ensemble
+
+Bag of balanced boosted learners also known as EasyEnsemble. This algorithm is known as EasyEnsemble [1]. The classifier is an ensemble of AdaBoost learners trained on different balanced boostrap samples. The balancing is achieved by random under-sampling.
+
 ```
 Mean ROC AUC on Train Set: 0.608
 Mean ROC AUC on Test Set: 0.603
@@ -280,6 +297,8 @@ Easy Ensemble Classifier score on Train Set: 0.6258828273155119
 ```
 
 ##### RUS Boost
+
+Random under-sampling integrated in the learning of AdaBoost. During learning, the problem of class balancing is alleviated by random under-sampling the sample at each iteration of the boosting algorithm.
 ```
 Mean ROC AUC on Train Set: 0.627
 Mean ROC AUC on Test Set: 0.613
@@ -290,6 +309,12 @@ RUS Boost score on Test Set: 0.6154802506678315
 ```
 
 #### XGBoost
+
+"Boosting is a strong alternative to bagging. Instead of aggregating predictions, boosters turn weak learners into strong learners by focusing on where the individual models (usually Decision Trees) went wrong. In Gradient Boosting, individual models train upon the residuals, the difference between the prediction and the actual results. Instead of aggregating trees, gradient boosted trees learns from errors during each boosting round.
+
+XGBoost is short for “eXtreme Gradient Boosting.” The “eXtreme” refers to speed enhancements such as parallel computing and cache awareness that makes XGBoost approximately 10 times faster than traditional Gradient Boosting. In addition, XGBoost includes a unique split-finding algorithm to optimize trees, along with built-in regularization that reduces overfitting. Generally speaking, XGBoost is a faster, more accurate version of Gradient Boosting.
+
+Boosting performs better than bagging on average, and Gradient Boosting is arguably the best boosting ensemble. Since XGBoost is an advanced version of Gradient Boosting, and its results are unparalleled, it’s arguably the best machine learning ensemble that we have."
 
 XGBoost provides a highly efficient implementation of the stochastic gradient boosting algorithm and access to a suite of model hyperparameters designed to provide control over the model training process.
 
