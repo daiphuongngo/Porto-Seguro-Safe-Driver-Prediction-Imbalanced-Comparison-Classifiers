@@ -331,7 +331,95 @@ Mean ROC AUC on Test Set: 0.589
 XGBoost classifier score on Test Set: 0.9633238688866115
 ```
 
-#### Deep Neural Network's result
+#### Deep Neural Network
+
+Deep learning is the application of artificial neural networks using modern hardware. It allows the development, training, and use of neural networks that are much larger (more layers) than was previously thought possible. There are thousands of types of specific neural networks proposed by researchers as modifications or tweaks to existing models. Sometimes wholly new approaches. There are three classes of artificial neural networks that I recommend that you focus on in general. They are:
+
+- Multilayer Perceptrons (MLPs)
+- Convolutional Neural Networks (CNNs)
+- Recurrent Neural Networks (RNNs)
+
+Multilayer Perceptrons, or MLPs for short, are the classical type of neural network. They are comprised of one or more layers of neurons. Data is fed to the input layer, there may be one or more hidden layers providing levels of abstraction, and predictions are made on the output layer, also called the visible layer.
+
+MLPs are suitable for classification prediction problems where inputs are assigned a class or label. They are also suitable for regression prediction problems where a real-valued quantity is predicted given a set of inputs. Data is often provided in a tabular format, such as you would see in a CSV file or a spreadsheet.
+
+In this project, I used MLPs for the Classification prediction problems on the imbalanced Banking Dataset to predict Subscribed or Non-Subscribed customers. They are very flexible and can be used generally to learn a mapping from inputs to outputs. After feeding to the MLP and training them, I would at the common metrics to compare with those of other classifers. It would be worth at least testing the MLPs on this problem. The results can be used as a baseline point of comparison to confirm that other models that may appear better suited and add more value.
+
+**Initiate optimizer**
+
+- Compile model by this command:
+
+```
+model.compile(loss='', optimizer='adam', metrics=''
+```
+
+When compiling by the above method, optimizer will use the default learning rate by the system. To input a preferred learning rate, I have to initiate optimizer.
+
+```
+from tensorflow.keras.optimizers import Adam, RMSprop, SGD, ...
+
+my_optimizer = Adam(learning_rate = 0.01)
+# or
+my_optimizer = SGD(learning_rate = 0.01, momentum = 0.9)
+# or
+my_optimizer = RMSprop(learning_rate = 0.01, momentum = 0.9)
+
+model.compile(loss='', optimizer=my_optimizer, metrics='')
+```
+
+Common learning rates include 0.1 or 0.01 or 0.001.
+
+Common momentums include 0.9 or 0.8.
+
+**Initiate model**
+
+There are 2 ways to initiate model in Keras:
+
+*   Method 1: use Sequential
+
+```
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense
+
+model = Sequential()
+model.add(Dense(16, activation='relu', input_shape=X.shape[1:]))
+...
+model.add(Dense(1, activation='sigmoid'))
+```
+
+*   Method 2: use Model
+
+```
+from tensorflow.keras.models import Model
+from tensorflow.keras.layers import Dense, Input
+
+input = Input(shape=X.shape[1:])
+layer_1 = Dense(16, activation='relu')(input)
+layer_2 = Dense(16, activation='relu')(layer_1)
+layer_3 = Dense(16, activation='relu')(layer_2)
+output = Dense(1, activation='sigmoid')(layer_3)
+
+model=Model(input, output)
+```
+
+**Plot charts after training**
+
+```
+model.compile(loss='mse', optimizer='', metrics=['mae',RootMeanSquaredError()])
+
+history = model.fit(X_train, y_train, epochs=50)
+```
+At this time, the object history will save 3 metrics 'loss',  'mae', 'root_mean_squared_error' after 50 epochs. To see the saved metrics, I use this command:
+
+```
+print(history.history.keys())
+```
+
+To draw chart for loss after 50 epochs, I use this command:
+
+```
+plt.plot(history.history['loss']) # loss is one of ouput's metrics generated after calling the above function print()
+```
 
 ```
 Epoch 5/5
